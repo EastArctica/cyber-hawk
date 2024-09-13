@@ -2,7 +2,7 @@ export namespace Inventory {
 
 
     export function getAllItems(): any {
-        let inventory = {};
+        let inventory: any = {};
         Player.openInventory().getItems().forEach(JavaWrapper.methodToJava((e) => {
 
             try {

@@ -1,12 +1,12 @@
-import { ChatType } from "../../shared/messages/tasks/ChatTask";
+import ChatTask, { ChatType } from "../../shared/messages/tasks/ChatTask";
 
 export namespace Task {
-    export function chat(type: ChatType, message: string): number {
+    export function chat(task: ChatTask): number {
         
-        if(type == ChatType.Log) {
-            Chat.log(message);
-        } else if (type == ChatType.Chat) {
-            Chat.say(message);
+        if(task.chatType == ChatType.Log) {
+            Chat.log(task.message);
+        } else if (task.chatType == ChatType.Chat) {
+            Chat.say(task.message);
         }
 
         return 1;
