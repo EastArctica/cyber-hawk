@@ -1,3 +1,5 @@
 # Ignore artifacts:
 client/headers
 build
+pnpm-lock.yaml
+tsconfig.json
