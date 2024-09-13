@@ -1,3 +1,3 @@
-interface GenericTask {
+export interface GenericTask {
     type: string;
 };

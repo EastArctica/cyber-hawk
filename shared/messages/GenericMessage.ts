@@ -1,4 +1,4 @@
-interface GenericMessage {
+export interface GenericMessage {
     type: string;
     data: any;
     // Incremental id
