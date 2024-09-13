@@ -1,6 +1,6 @@
 export default interface GenericMessage {
-    type: string;
-    data: any;
-    // Incremental id
-    id: number;
-};
+  type: string;
+  data: any;
+  // Incremental id
+  id: number;
+}

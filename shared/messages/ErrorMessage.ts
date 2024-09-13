@@ -1,9 +1,9 @@
-import GenericMessage from "./GenericMessage";
+import GenericMessage from './GenericMessage';
 
 export default interface ErrorMessage extends GenericMessage {
-    type: 'ErrorMessage';
-    data: {
-        message: string;
-        raw: string;
-    };
-};
+  type: 'ErrorMessage';
+  data: {
+    message: string;
+    raw: string;
+  };
+}

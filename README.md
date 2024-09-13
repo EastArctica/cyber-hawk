@@ -5,18 +5,21 @@
 Requests a task from the server
 
 ## Body
+
 ```ts
 {
-    name: string //Name of the bot sending the request
+  name: string; //Name of the bot sending the request
 }
 ```
 
 ## Response
+
 ```ts
 {
-    id: string //task uuid
-    type: string //Task type
-    body: {} //Information about the task
+  id: string; //task uuid
+  type: string; //Task type
+  body: {
+  } //Information about the task
 }
 ```
 
@@ -25,17 +28,19 @@ Requests a task from the server
 Sends a task completion message to the server
 
 ## Body
+
 ```ts
 {
-    name: string //Name of bot sending request
-    id: string //ID of task completed
+  name: string; //Name of bot sending request
+  id: string; //ID of task completed
 }
 ```
 
 ## Response
+
 ```ts
 {
-    status: string //Either "Done", "TasksLeft", "InvalidTask"
+  status: string; //Either "Done", "TasksLeft", "InvalidTask"
 }
 ```
 
@@ -44,21 +49,24 @@ Sends a task completion message to the server
 Used for a bot to send information to the server for logging
 
 ## Body
+
 ```ts
 {
-    name: string
-    state: string
-    task: {
-        id: string
-        type: string
-        body: {}
+  name: string;
+  state: string;
+  task: {
+    id: string;
+    type: string;
+    body: {
     }
+  }
 }
 ```
 
 ## Response
+
 ```ts
 {
-    status: string //either "accepted", or a 400 type error
+  status: string; //either "accepted", or a 400 type error
 }
 ```
