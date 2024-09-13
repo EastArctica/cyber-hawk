@@ -1,11 +1,11 @@
-import { GenericTask } from './GenericTask';
+import GenericTask from './GenericTask';
 
 export enum ChatType {
     Log = 'Log',
     Chat = 'Chat',
 };
 
-export interface ChatTask extends GenericTask {
+export default interface ChatTask extends GenericTask {
     type: 'ChatTask';
     chatType: ChatType;
     message: string;

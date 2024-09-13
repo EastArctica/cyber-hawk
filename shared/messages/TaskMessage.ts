@@ -1,7 +1,7 @@
-import { GenericMessage } from './GenericMessage';
-import { GenericTask } from './tasks/GenericTask';
+import GenericMessage from './GenericMessage';
+import GenericTask from './tasks/GenericTask';
 
-export interface TaskMessage extends GenericMessage {
+export default interface TaskMessage extends GenericMessage {
     type: 'TaskMessage';
     data: GenericTask;
 };

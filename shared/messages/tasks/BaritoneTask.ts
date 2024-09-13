@@ -1,5 +1,5 @@
-import { GenericTask } from './GenericTask';
+import GenericTask from './GenericTask';
 
-export interface BaritoneTask extends GenericTask {
+export default interface BaritoneTask extends GenericTask {
     type: 'BaritoneTask';
 };
