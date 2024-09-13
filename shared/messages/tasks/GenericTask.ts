@@ -1,0 +1,3 @@
+interface GenericTask {
+    type: string;
+};
