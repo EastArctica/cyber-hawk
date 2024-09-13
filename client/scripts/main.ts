@@ -1,15 +1,6 @@
 import { Inventory } from "./Inventory";
+import { ChatType } from "../../shared/messages/tasks/ChatTask";
 
-namespace Task {
-    function chat(type: string, message: string): number {
-        
-       /* if(type == "Log") {
-            Chat.log(message);
-        } else */
-
-        return 1;
-    }
-}
 
 
 const BaritoneAPI: any = Java.type("baritone.api.BaritoneAPI");
