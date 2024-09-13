@@ -1,3 +1,3 @@
-client/build
-server/build
+*/build/
+*/build/
 **/node_modules/*
