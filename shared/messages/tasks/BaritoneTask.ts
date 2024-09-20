@@ -1,5 +1,7 @@
-import GenericTask from './GenericTask';
+import BaseTask from './BaseTask';
 
-export default interface BaritoneTask extends GenericTask {
-  type: 'BaritoneTask';
+export default class BaritoneTask extends BaseTask {
+  constructor() {
+    super('BaritoneTask');
+  }
 }

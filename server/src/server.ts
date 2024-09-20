@@ -1,48 +1,38 @@
 import WebSocket, { WebSocketServer } from 'ws';
-import ErrorMessage from '../../shared/messages/ErrorMessage';
-import GenericMessage from '../../shared/messages/GenericMessage';
+import ErrorMessage, { isErrorMessage } from '../../shared/messages/ErrorMessage';
+import { isBotInitMessage } from '../../shared/messages/BotInitMessage';
+import { isTaskMessage } from '../../shared/messages/TaskMessage';
+import { isWebClientInitMessage } from '../../shared/messages/WebClientInitMessage';
 
 const wss = new WebSocketServer({ port: 8080 });
 
-wss.on('connection', (ws: WebSocket) => {
-  // TODO: Make getter increment
-  let messageIndex = 0;
+const botClients = [];
+const webClients = [];
 
-  ws.on('message', (message: string) => {
-    let messageObj: GenericMessage;
+wss.on('connection', (client: WebSocket) => {
+  client.on('message', (message: string) => {
+    let messageObj: object;
     try {
       messageObj = JSON.parse(message);
-    } catch (e) {
-      // Send error message to client
-      let errMessage: ErrorMessage = {
-        type: 'ErrorMessage',
-        data: {
-          message: 'Failed to parse message',
-          raw: `${e}`,
-        },
-        id: messageIndex++,
-      };
+    } catch (e: any) {
+      let errMessage = new ErrorMessage('Failed to parse message', "" + e);
 
-      ws.send(JSON.stringify(errMessage));
+      client.send(JSON.stringify(errMessage));
       return;
     }
 
-    switch (messageObj.type) {
-      case 'TaskMessage':
-        console.log('Task received? Client sending us a mfing task wtf do you mean');
-        console.log(messageObj.data);
-        break;
-      case 'ErrorMessage':
-        console.log('Error received');
-        console.log(messageObj.data);
-        break;
-      default:
-        console.log(`Received message =>`, messageObj);
-        break;
+    if (isBotInitMessage(messageObj)) {
+      console.log('Client sent bot init');
+      botClients.push(client);
+    } else if (isErrorMessage(messageObj)) {
+      console.log('Error received');
+      console.log(messageObj.message, messageObj.raw);
+    } else if (isTaskMessage(messageObj)) {
+      console.log('Task received? Client sending us a mfing task wtf do you mean');
+    } else if (isWebClientInitMessage(messageObj)) {
+
+    } else {
+      console.log(`Received message =>`, messageObj);
     }
-
-    console.log(`Received message => ${message}`);
   });
-
-  ws.send('Hello! Message From Server!!');
 });
