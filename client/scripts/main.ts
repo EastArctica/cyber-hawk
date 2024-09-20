@@ -1,5 +1,5 @@
 import { Inventory } from './Inventory';
-import { Task } from './Task';
+// import { Task } from './Task';
 import ChatTask, { ChatType } from '../../shared/messages/tasks/ChatTask';
 
 const BaritoneAPI: any = Java.type('baritone.api.BaritoneAPI');
@@ -9,9 +9,9 @@ BaritoneAPI.getSettings().logger.value = JavaWrapper.methodToJava((_) => {});
 
 // for(let i: int = 0; i<Player.openInventory().getItems().length(); i++);
 
-Task.chat({
-  chatType: ChatType.Log,
-  message: '/say hello',
-} as ChatTask);
+// Task.chat({
+//   chatType: ChatType.Log,
+//   message: '/say hello',
+// } as ChatTask);
 
 //Chat.log(Inventory.getAllItems());
