@@ -41,15 +41,15 @@ export namespace Inventory {
 
   export function dropItems(name: string, amount: number) {
     // Chat.log("Dropping "+name+" x"+amount);
-    let i = 0;
     for(let i = 0; i<46; i++) {
+        Time.sleep(500);
         if(amount <= 0)
             return;
 
         let e = Player.openInventory().getSlot(i);
 
         //optimization: drops entire stack if applicable to avoid spamming drop and crashing the client
-        if(amount <= e.getCount()) {
+        if(amount >= e.getCount()) {
             amount -= e.getCount();
             Player.openInventory().dropSlot(i, true);
             continue;

@@ -17,22 +17,12 @@ let items: {[key: string]: number} = {
 };
 
     
-// let itemdelta = Inventory.getExtraItems(items);
-// Chat.log(itemdelta);
-
-// Player.openInventory().openGui();
-// Time.sleep(1000);
 
 let deltaitems = Inventory.getExtraItems(items);
+Chat.log(deltaitems);
 Inventory.dropExtraItems(deltaitems);
 
-// for(let i = 0; i<46; i++) {
-//     Chat.log(Player.openInventory().getSlot(i));
-//     Player.openInventory().dropSlot(i);
-//     Time.sleep(500);
-// }
 
-// Time.sleep(1000);
 // Player.openInventory().close();
 
 
@@ -52,3 +42,5 @@ ws.onTextMessage = JavaWrapper.methodToJava((_, message: string) => {
 });
 
 ws.connect();
+// let input = Player.createPlayerInput(0, 0, 0, 0, false, false, false);
+// Player.addInput(input);
