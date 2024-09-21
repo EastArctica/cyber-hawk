@@ -10,10 +10,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "prismarine-block": "^1.17.1",
     "prismarine-chunk": "^1.35.0",
     "prismarine-viewer": "^1.28.0",
     "prismarine-world": "^3.6.3",
     "typescript": "^5.6.2",
-    "vec3": "^0.1.10"
+    "vec3": "^0.1.10",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@types/ws": "^8.5.12"
   }
 }

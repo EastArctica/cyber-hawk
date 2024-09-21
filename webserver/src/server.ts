@@ -1,12 +1,21 @@
+import WebSocket from 'ws';
+
+// Shared imports
+import ErrorMessage, { isErrorMessage } from '../../shared/messages/ErrorMessage';
+import { isChunkMessage } from '../../shared/messages/ChunkMessage';
+import WebClientInitMessage from '../../shared/messages/WebClientInitMessage';
+
 import { standalone as standaloneViewer } from 'prismarine-viewer';
 import { Vec3 } from 'vec3';
 
 import prismarineWorld from 'prismarine-world';
 import prismarineChunk from 'prismarine-chunk';
+import prismarineBlock from 'prismarine-block';
 
 const version = '1.13.2';
 const World = prismarineWorld(version);
 const Chunk = prismarineChunk(version);
+const Block = prismarineBlock(version);
 
 // Create a flat world with only 1 layer of stone at y=0
 function worldGenerator(x: number, y: number, z: number) {
@@ -33,7 +42,35 @@ const viewer = standaloneViewer({
   port: 3001,
 });
 
-// Generate a level 4 menger sponge fractal
-(async () => {
-  viewer.update();
-})();
+// Connect to websocket
+const ws = new WebSocket('ws://localhost:8080');
+ws.on('open', () => {
+  console.log('Connected to server');
+  ws.send(JSON.stringify(new WebClientInitMessage()))
+
+  ws.on('message', (message: string) => {
+    let messageObj: object;
+    try {
+      messageObj = JSON.parse(message);
+    } catch (e: any) {
+      let errMessage = new ErrorMessage('Failed to parse message', "" + e);
+
+      ws.send(JSON.stringify(errMessage));
+      return;
+    }
+
+    if (isChunkMessage(messageObj)) {
+      console.log(`Received chunk message =>`, messageObj.blocks.length);
+      for (const block of messageObj.blocks) {
+        try {
+          world.setBlock(new Vec3(block.x, block.y, block.z), Block.fromProperties(block.id.substring(10), {}, 0));
+        } catch (e) {
+          //console.error(e);
+        }
+      }
+      viewer.update();
+    } else {
+      console.log(`Received message =>`, messageObj);
+    }
+  });
+});
