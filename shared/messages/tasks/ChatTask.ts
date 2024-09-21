@@ -11,6 +11,9 @@ export default class ChatTask extends BaseTask {
 
   constructor(chatType: ChatType, message: string) {
     super('ChatTask');
+
+    this.chatType = chatType;
+    this.message = message;
   }
 }
 
