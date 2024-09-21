@@ -1,6 +1,7 @@
 import { Inventory } from './Inventory';
 import { Task } from './Task';
 import ChatTask, { ChatType } from '../../shared/messages/tasks/ChatTask';
+import BotInitMessage from '../../shared/messages/BotInitMessage';
 
 const BaritoneAPI: any = Java.type('baritone.api.BaritoneAPI');
 Chat.log('Provider: ' + BaritoneAPI.getProvider());
@@ -36,3 +37,18 @@ Inventory.dropExtraItems(deltaitems);
 
 
 //Chat.log(Inventory.getAllItems());
+
+// WebSocket stuff
+let ws = Request.createWS('ws://localhost:8080');
+
+ws.onConnect = JavaWrapper.methodToJava(() => {
+    Chat.log('Connected to server');
+    let username = Client.getMinecraft().method_1548().method_1676() // .session.getUsername()
+    ws.sendText(JSON.stringify(new BotInitMessage(username, World.getCurrentServerAddress() || "", 0)));
+});
+
+ws.onTextMessage = JavaWrapper.methodToJava((_, message: string) => {
+    
+});
+
+ws.connect();
